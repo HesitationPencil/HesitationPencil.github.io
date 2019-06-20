@@ -22,7 +22,7 @@
     <meta name="description" content="android开发 学习 工作 生活">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>gagapencil学习小站</title>
+    <title>增量更新 · gagapencil学习小站</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">gagapencil学习小站</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">增量更新</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">gagapencil学习小站</a>
 </header>
@@ -220,24 +231,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            增量更新
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="android绘制原理">android绘制原理</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/19</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,40 +399,89 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/06/20/apk签名及多渠道打包/">
-            
-                <span>apk签名过程及多渠道</span>
-        </a>
-        <div class="abstract-content">
-            apk签名过程及多渠道公司业务渠道较多共有70多个渠道，打包时间较长，所以抽时间研究一下美团的多渠道打包。本文介绍常见的多渠道打包方式：productFlavors方式，apktool,美团1.0，美团2.0,腾讯 这些方式技术从旧到新，试图说起多渠道打包的脉络。
-productFlavorsproductFlavors不用切换项目分支就可以编译调试不同项目版本的APK，并且可以快速打包所有项目版本的APK。例如是开发第三方Android OS的时候，由于要给不同的厂商做定制，并且适配不同的硬件平台，所以发版本的时候，经常要切换项目分支，然后逐个编译APK。关于更多productFlav...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="打包原理">打包原理</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="硬件分工"><a href="#硬件分工" class="headerlink" title="硬件分工"></a>硬件分工</h3><p>在计算机硬件中, 通常 CPU 用来处理数据, GPU 用来渲染数据. Android 系统也不例外, 绘制过程首先是 CPU 准备数据, 通过 Driver 层把数据交给 GPU 渲染. 其中 CPU 主要负责 Measure 、Layout 、Record 、Execute 的数据计算工作, GPU 负责 Rasterization（栅格化）、渲染. 由于图形 API 不允许 CPU 直接与 GPU 通信, 而是通过中间的一个图形驱动层（Graphics Driver）来连接这两部分. 图形驱动维护了一个队列, CPU 把 display list 添加到队列中, GPU 从这个队列取出数据进行绘制, 最终才在显示屏上显示出来.</p>
+<p>那么无论是 CPU 准备的数据, 还是 GPU 渲染的数据, 都是以一帧一帧的形式来的. 我们所看到的界面也是有一帧一帧的图像连续显示而来. 对于人眼来说, 每秒钟看到60帧则比较流畅了, 即 FPS(Frame Per second) 为60, 1/60 = 0.01666667, 即每 16ms 进行一次准备-渲染操作.</p>
+<h3 id="系统变更历史"><a href="#系统变更历史" class="headerlink" title="系统变更历史"></a>系统变更历史</h3><h5 id="在-Android-4-1-以前-每一次渲染的流程可以用下图表示"><a href="#在-Android-4-1-以前-每一次渲染的流程可以用下图表示" class="headerlink" title="在 Android 4.1 以前, 每一次渲染的流程可以用下图表示:"></a>在 Android 4.1 以前, 每一次渲染的流程可以用下图表示:</h5><p><img src="https://upload-images.jianshu.io/upload_images/3430068-b5197ac2823a39cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>横轴表示时间, 每条 VSync 线表示 16ms:</p>
+<ul>
+<li>1.时间从0开始，进入第一个16ms：Display显示第0帧，CPU处理完第一帧后，GPU紧接其后处理继续第一帧。三者互不干扰，一切正常。 </li>
+<li>2.时间进入第二个16ms：因为早在上一个16ms时间内，第1帧已经由CPU，GPU处理完毕。故Display可以直接显示第1帧。显示没有问题。但在本16ms期间，CPU和GPU 却并未及时去绘制第2帧数据（注意前面的空白区），而是在本周期快结束时，CPU/GPU才去处理第2帧数据。 </li>
+<li>3.时间进入第3个16ms，此时Display应该显示第2帧数据，但由于CPU和GPU还没有处理完第2帧数据，故Display只能继续显示第一帧的数据，结果使得第1 帧多画了一次（对应时间段上标注了一个Jank）。 </li>
+<li>4.通过上述分析可知，此处发生Jank的关键问题在于，为何第1个16ms段内，CPU/GPU没有及时处理第2帧数据？原因很简单，CPU可能是在忙别的事情（比如某个应用通过sleep 固定时间来实现动画的逐帧显示），不知道该到处理UI绘制的时间了。可CPU一旦想起来要去处理第2帧数据，时间又错过了！</li>
+</ul>
+<h5 id="在-Android-4-1-版本中-为了解决这些问题推出了-Project-Butter-主要引入-VSync-Triple-Buffer和Choreographer"><a href="#在-Android-4-1-版本中-为了解决这些问题推出了-Project-Butter-主要引入-VSync-Triple-Buffer和Choreographer" class="headerlink" title="在 Android 4.1 版本中, 为了解决这些问题推出了 Project Butter, 主要引入 VSync, Triple Buffer和Choreographer."></a>在 Android 4.1 版本中, 为了解决这些问题推出了 Project Butter, 主要引入 VSync, Triple Buffer和Choreographer.</h5><ul>
+<li><p>VSync : Vertical Synchronization, 即垂直同步, 可以理解为一种定时中断, GPU 和 CPU 在收到 VSync 信号时开始准备数据.<br>引入 VSync 后的渲染流程如下:<br><img src="https://upload-images.jianshu.io/upload_images/3430068-8ede92f81f78dafb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>这样每次收到 VSync 中断时, CPU 和 GPU 开始工作. 只要 CPU 和 GPU 的 FPS 略高于 Display 的 FPS, 则每次都能在 16ms 之内准备好下一帧, 能够顺利显示.</li>
+<li>如果 CPU 和 GPU 已经准备完毕, 只要没有收到 VSync 信号, 都不会进行渲染工作.</li>
+</ul>
+</li>
+<li><p>Triple Buffer: 即3个缓存块. 在 Android 4.1 以前, 只有2个缓存块用于准备数据, 两个缓存块交替使用. 在引入 VSync 后, 如果 CPU 和 GPU 的 FPS 比 Display 的 FPS 低, 即不能在 16ms 内准备好数据, 会导致很严重的掉帧效果.<br><img src="https://upload-images.jianshu.io/upload_images/3430068-acd7838a4b880e8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li><p>在第一个16ms中, 系统显示缓存块A, CPU 和 GPU 在缓存块 B 中准备第1帧.</p>
+</li>
+<li><p>在第二个16ms中, 由于 GPU 还没有准备好, 所以只能继续显示缓存块 A 的内容, 用户感知到卡顿.<br>为了解决这个问题, Android 4.1 引入第三个缓存块:<br><img src="https://upload-images.jianshu.io/upload_images/3430068-08dd37fead037981.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+</li>
+<li><p>在第一个16ms中, 系统显示缓存块A, CPU 和 GPU 在缓存块 B 中准备第1帧.</p>
+</li>
+<li><p>在第二个16ms中, 由于 GPU 还没有准备好, 所以只能继续显示缓存块 A 的内容, 用户感知到卡顿. 但此时 CPU 可以在缓存块 C 中准备数据.</p>
+</li>
+<li><p>正常显示不会再丢帧.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>但是缓存块并不是越多越好, CPU 和 GPU 准备的数据最好在下一个 16ms 显示, 但是 Triple Buffer 中 CPU 准备的缓存块C, 在第四个 16ms 中才显示, 滞后了 16ms. 所以第三个缓存块主要是备用, 一般来说两个缓存块就够了.</p>
+<ul>
+<li>Choreographer: 译为舞蹈编排, 起到调度作用, 收到 VSync 信号时调用用户设置的回调函数, 回调类型有三种:<ul>
+<li>CALLBACK_INPUT：优先级最高，和输入事件处理有关。</li>
+<li>CALLBACK_ANIMATION：优先级其次，和Animation的处理有关。</li>
+<li>CALLBACK_TRAVERSAL：优先级最低，和UI等控件绘制有关。</li>
+</ul>
+</li>
+</ul>
+<p>本文摘自：<br>&emsp;<a href="https://niorgai.github.io/2017/03/21/Android-Draw-System/#%E7%A1%AC%E4%BB%B6%E5%88%86%E5%B7%A5" target="_blank" rel="noopener">Android 绘制原理</a><br>&emsp;<a href="https://cloud.tencent.com/developer/article/1176313" target="_blank" rel="noopener">Android的16ms和垂直同步以及三重缓存</a></p>
+
     </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://hesitationpencil.github.io">gagapencil</a>
+            </p><p>原文链接：<a href="https://hesitationpencil.github.io/2019/06/19/android绘制原理/">https://hesitationpencil.github.io/2019/06/19/android绘制原理/</a>
+            </p><p>发表日期：<a href="https://hesitationpencil.github.io/2019/06/19/android绘制原理/">六月 19日 2019, 3:19:14 下午</a>
+            </p><p>更新日期：<a href="https://hesitationpencil.github.io/2019/06/19/android绘制原理/">June 20th 2019, 4:16:36 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/06/20/android编舞者ChoreoGrapher/" title="android编舞者ChoreoGrapher">
+                    <div class="nextTitle">android编舞者ChoreoGrapher</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -450,6 +560,24 @@ productFlavorsproductFlavors不用切换项目分支就可以编译调试不同�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#硬件分工"><span class="toc-number">1.</span> <span class="toc-text">硬件分工</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统变更历史"><span class="toc-number">2.</span> <span class="toc-text">系统变更历史</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#在-Android-4-1-以前-每一次渲染的流程可以用下图表示"><span class="toc-number">2.0.1.</span> <span class="toc-text">在 Android 4.1 以前, 每一次渲染的流程可以用下图表示:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在-Android-4-1-版本中-为了解决这些问题推出了-Project-Butter-主要引入-VSync-Triple-Buffer和Choreographer"><span class="toc-number">2.0.2.</span> <span class="toc-text">在 Android 4.1 版本中, 为了解决这些问题推出了 Project Butter, 主要引入 VSync, Triple Buffer和Choreographer.</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -655,6 +783,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
