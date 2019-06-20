@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,56 +396,96 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <hr>
-<p>title: apk签名过程及多渠道<br>date: 2019-06-20 15:19:14<br>tags:apk打包原理 增量更新</p>
-<h1 id="增量更新"><a href="#增量更新" class="headerlink" title="增量更新"></a>增量更新</h1><p><strong>增量更新</strong> 一种不需要重新下载apk，利用新的apk在原有的基础生成patch包进行更新的一种技术。本文重增量更新的作用，原理和使用进行阐述。</p>
-<h2 id="原理及作用"><a href="#原理及作用" class="headerlink" title="原理及作用"></a>原理及作用</h2><p>增量更新就是比较两个apk之间的二进制差异，生成patch包然后打入旧的apk里面从而达到生成新的apk。例如说：第一个版本是3M的apk ，第二个是8M的apk ，生成的patch包可能就在4M左右，甚至更小，但也不是单纯的两个apk相减的差值，有可能两个大小差不多的apk，生成patch包可能在1M左右，这个也是看包里的改动大小。生成的 patch下载到Android设备上跟较低版本的apk合成一个新版本的apk文件，如果不出意外的话，这个生成的apk和你之前做差分的apk是一致的。这么做就会为用户去节省很多的流量，就不会让用户去下载完整的apk，从而提高了用户体验。</p>
-<p><img src="https://i.imgur.com/XejMjOk.png" alt></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
-<li>利用old.apk和new.apk生成增量文件（patch）</li>
-<li>利用old.apk和patch生成new.apk</li>
-<li>安装</li>
-</ol>
-<p>需要实现增量更新，现在有各种开源的制作与合并差分包的开源库，比如：bsdiff、hdiff等等。因此我们只需要获得源码来使用即可。</p>
-<h3 id="增量文件的生成"><a href="#增量文件的生成" class="headerlink" title="增量文件的生成"></a>增量文件的生成</h3><p>这里利用bsdiff工具做二进制的一个diff和patch了，可以直接下载工具<br><br>window:<a href="https://github.com/cnSchwarzer/bsdiff-win/releases" target="_blank" rel="noopener">https://github.com/cnSchwarzer/bsdiff-win/releases</a> <br><br>ubuntu:ubuntu sudo apt-get install bsdiff <br></p>
-<h4 id="bisdiff算法原理"><a href="#bisdiff算法原理" class="headerlink" title="bisdiff算法原理"></a>bisdiff算法原理</h4><p>尽可能多的利用old文件中已有的内容看，尽可能少的加入新的内容来构建new文件。通常的做法是对old文件和new文件做子字符串匹配或者使用hash技术，提取公共部分，将new文件中剩余的部分打包成patch包，在patch阶段中，用copying和insertion两个基本操作即可将old文件和patch包合成new文件。<br><img src="https://i.imgur.com/VGnxCm2.png" alt></p>
-<h4 id="ubuntu编译bisdiff"><a href="#ubuntu编译bisdiff" class="headerlink" title="ubuntu编译bisdiff"></a>ubuntu编译bisdiff</h4><h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p>ubuntu可自己编译bsdiff工具，先下载bisdiff和bzip2</p>
-<blockquote>
-<p>bsdiff 下载地址：</p>
-<p><a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener">http://www.daemonology.net/bsdiff/</a></p>
-<p>bsdiff 依赖bzip2(zip压缩库)</p>
-<p><a href="https://nchc.dl.sourceforge.net/project/gnuwin32/bzip2/1.0.5/bzip2-1.0.5-src.zip" target="_blank" rel="noopener">https://nchc.dl.sourceforge.net/project/gnuwin32/bzip2/1.0.5/bzip2-1.0.5-src.zip</a></p>
-</blockquote>
-<p>下载完后解压</p>
-<p><img src="https://i.imgur.com/N2Oq6Wi.png" alt></p>
-<p>bsdiff:         比较两个文件的二进制数据，生成差分包 <br><br>bspatch：    合并旧的文件与差分包，生成新文件<br>很显然，bspatch我们需要在Android环境下来执行，而bsdiff 一般会在你的存储服务器当中执行即电脑环境下执行(win或linux)</p>
-<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p>我们在目录下 直接 make 会产生错误需要修改makefile：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">install:</span><br><span class="line">	$&#123;INSTALL_PROGRAM&#125; bsdiff bspatch $&#123;PREFIX&#125;/bin</span><br><span class="line">.ifndef WITHOUT_MAN</span><br><span class="line">	$&#123;INSTALL_MAN&#125; bsdiff.1 bspatch.1 $&#123;PREFIX&#125;/man/man1</span><br><span class="line">.endif</span><br><span class="line">#上面这段makefile片段显然有问题(指令必须以tab开头)</span><br><span class="line">#因此需要修改为：</span><br><span class="line">install:</span><br><span class="line">	$&#123;INSTALL_PROGRAM&#125; bsdiff bspatch $&#123;PREFIX&#125;/bin</span><br><span class="line">	.ifndef WITHOUT_MAN</span><br><span class="line">	$&#123;INSTALL_MAN&#125; bsdiff.1 bspatch.1 $&#123;PREFIX&#125;/man/man1</span><br><span class="line">	.endif</span><br><span class="line">#也就是在 `.if` 和 `.endif` 前加一个 tab</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改后再来执行<code>make</code> 如果出现找不到bzip2 <code>no file found bzlib.h</code>之类的错误，则需要先安装bzip2：</p>
-<p>Ubuntu:</p>
- <figure class="highlight plain"><figcaption><span>install libbz2-dev ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">&gt; Centos:</span><br><span class="line">&gt;</span><br><span class="line">&gt; ```yum -y install bzip2-devel.x86_64</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>Mac:</p>
-<figure class="highlight plain"><figcaption><span>install bzip2```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">&gt; &lt;!--install 不知道填什么，可以使用包管理器进行搜索： --&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt; &lt;!-- apt/yum/brew search bzip2 --&gt;</span><br><span class="line"></span><br><span class="line">如果执行make出现</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">bsdiff.c:(.text.startup+0x2aa): undefined reference to `BZ2_bzWriteOpen&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0xcfa): undefined reference to `BZ2_bzWrite&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0xe37): undefined reference to `BZ2_bzWrite&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0xf80): undefined reference to `BZ2_bzWrite&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0xfe1): undefined reference to `BZ2_bzWriteClose&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x1034): undefined reference to `BZ2_bzWriteOpen&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x105c): undefined reference to `BZ2_bzWrite&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x1082): undefined reference to `BZ2_bzWriteClose&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x10d5): undefined reference to `BZ2_bzWriteOpen&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x1100): undefined reference to `BZ2_bzWrite&apos;</span><br><span class="line">bsdiff.c:(.text.startup+0x1126): undefined reference to `BZ2_bzWriteClose&apos;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>则修改Makefile为：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS          +=      -O3 -lbz2</span><br><span class="line"></span><br><span class="line">PREFIX          ?=      /usr/local</span><br><span class="line">INSTALL_PROGRAM ?=      $&#123;INSTALL&#125; -c -s -m 555</span><br><span class="line">INSTALL_MAN     ?=      $&#123;INSTALL&#125; -c -m 444</span><br><span class="line"></span><br><span class="line"><span class="section">all:            bsdiff bspatch</span></span><br><span class="line"><span class="section">bsdiff:         bsdiff.c</span></span><br><span class="line">        cc bsdiff.c $&#123;CFLAGS&#125; -o bsdiff  <span class="comment">#增加</span></span><br><span class="line"><span class="section">bspatch:        bspatch.c</span></span><br><span class="line">        cc bspatch.c $&#123;CFLAGS&#125; -o bspatch <span class="comment">#增加</span></span><br><span class="line"></span><br><span class="line"><span class="section">install:</span></span><br><span class="line">        $&#123;INSTALL_PROGRAM&#125; bsdiff bspatch $&#123;PREFIX&#125;/bin</span><br><span class="line">        .<span class="keyword">ifndef</span> WITHOUT_MAN</span><br><span class="line">        $&#123;INSTALL_MAN&#125; bsdiff.1 bspatch.1 $&#123;PREFIX&#125;/man/man1</span><br><span class="line">        .<span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
-
-<p>bsdiff可以通过如上编译使用，而bspatch则需要在Android工程中使用NDK来进行编译使用，工程地址：</p>
-<blockquote>
-<p><a href="https://github.com/HesitationPencil/Study/tree/master/bsdiffdemo" target="_blank" rel="noopener">https://github.com/HesitationPencil/Study/tree/master/bsdiffdemo</a></p>
-</blockquote>
+<p>title: apk签名过程及多渠道<br>date: 2019-06-20 15:19:14<br>tags:音视频 ffmpeg</p>
+<h2 id="滤镜解析"><a href="#滤镜解析" class="headerlink" title="滤镜解析"></a>滤镜解析</h2><p>FFmpeg中filter分为：</p>
+<ul>
+<li>audio filter</li>
+<li>video filter</li>
+<li>Multimedia filter</li>
+<li>source filter（仅输出）</li>
+<li>sink filter（仅输入）</li>
+</ul>
+<p>详细的滤镜说明参看：<a href="https://ffmpeg.org/ffmpeg-filters.html" target="_blank" rel="noopener">https://ffmpeg.org/ffmpeg-filters.html</a></p>
+<h3 id="视频滤镜"><a href="#视频滤镜" class="headerlink" title="视频滤镜"></a>视频滤镜</h3><h4 id="crop"><a href="#crop" class="headerlink" title="crop"></a>crop</h4><p>按照特定分辨率裁剪输入视频</p>
+<p>截取右下角1/4的区块：<code>crop=in_w/2:in_h/2:in_w/2:in_h/2</code></p>
+<h4 id="scale"><a href="#scale" class="headerlink" title="scale"></a>scale</h4><p>使用libswscale库完成视频缩放的filter</p>
+<p>宽高缩小一半 <code>scale=in_w/2:in_h/2</code></p>
+<p>宽高固定拉伸比例：<code>scale=1400:900::force_original_aspect_ratio=decrease</code></p>
+<h4 id="pad"><a href="#pad" class="headerlink" title="pad"></a>pad</h4><p>视频边界填充</p>
+<p>不论输入视频分辨率，统一缩放成1280x720，并且居中展示: <code>scale=1280:720:force_original_aspect_ratio=decrease, pad=1280:720:(1280-in_w)/2:(720-in_h)/2</code></p>
+<h4 id="overlay"><a href="#overlay" class="headerlink" title="overlay"></a>overlay</h4><p>视频叠加</p>
+<p>视频叠加在右下角，各空10px：<code>overlay=main_w-overlay_w-10:main_h-overlay_h-10</code></p>
+<h4 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h4><p>视频任意角度旋转</p>
+<p>逆时针旋转1/6圆周：<code>rotate=-PI/6</code> 视频一直旋转：<code>rotate=&#39;2*PI*t:ow=hypot(iw,ih):oh=ow&#39;</code></p>
+<h4 id="hflip-amp-vflip"><a href="#hflip-amp-vflip" class="headerlink" title="hflip &amp; vflip"></a>hflip &amp; vflip</h4><p>水平和垂直镜像</p>
+<h4 id="edgedetect"><a href="#edgedetect" class="headerlink" title="edgedetect"></a>edgedetect</h4><p>边缘检测</p>
+<h4 id="fps"><a href="#fps" class="headerlink" title="fps"></a>fps</h4><p>按照指定帧率输出视频帧（丢帧或者复制）</p>
+<h4 id="drawbox"><a href="#drawbox" class="headerlink" title="drawbox"></a>drawbox</h4><p>绘制box</p>
+<p>半透明框：<code>drawbox=x=10:y=10:w=100:h=100:color=pink@0.5:t=max</code></p>
+<h4 id="drawgrid"><a href="#drawgrid" class="headerlink" title="drawgrid"></a>drawgrid</h4><p>绘制grid（表格）</p>
+<p>3x3表格：<code>drawgrid=w=iw/3:h=ih/3:t=2:c=white@0.5</code></p>
+<h4 id="drawtext"><a href="#drawtext" class="headerlink" title="drawtext"></a>drawtext</h4><p>绘制text，编译ffmpeg需要添加选项<code>--enable-libfreetype</code></p>
+<p>微软雅黑字体：<code>drawtext=fontfile=/Users/xxx/fonts/MsYaHei.ttf:text=&#39;Hello 世界&#39;:x=50: y=500:fontsize=80: fontcolor=white</code></p>
+<h4 id="blend-amp-tblend"><a href="#blend-amp-tblend" class="headerlink" title="blend &amp; tblend"></a>blend &amp; tblend</h4><p>将两帧视频合并为一帧。</p>
+<h4 id="thumbnail"><a href="#thumbnail" class="headerlink" title="thumbnail"></a>thumbnail</h4><p>提取缩略图。</p>
+<h4 id="transpose"><a href="#transpose" class="headerlink" title="transpose"></a>transpose</h4><p>图像转置。</p>
+<h4 id="histogram"><a href="#histogram" class="headerlink" title="histogram"></a>histogram</h4><p>生成每帧的各颜色分量的直方图。</p>
+<h4 id="showinfo"><a href="#showinfo" class="headerlink" title="showinfo"></a>showinfo</h4><p>显示视频帧的参数信息，比如时间戳、采样格式、帧类型等。</p>
+<h2 id="1、加字幕"><a href="#1、加字幕" class="headerlink" title="1、加字幕"></a>1、加字幕</h2><p>​         命令：ffmpeg -i <input> -filter_complex subtitles=filename=<subtitlename>-y <output></output></subtitlename></p>
+<p>​         说明：利用libass来为视频嵌入字幕，字幕是直接嵌入到视频里的硬字幕。</p>
+<h2 id="2、剪切"><a href="#2、剪切" class="headerlink" title="2、剪切"></a>2、剪切</h2><p>​         命令：ffmpeg -i <input>-ss 0 -t 10 -y <output></output></p>
+<p>​         说明：ss跟的是起始时间，t为持续时间，上面命令意思为从0秒开始截取10秒的时间。</p>
+<h2 id="3、缩放"><a href="#3、缩放" class="headerlink" title="3、缩放"></a>3、缩放</h2><p>​         命令： ffmpeg -i<output> -filter_complex scale=320:240  -y <output></output></output></p>
+<p>​         说明：scale参数为宽高。</p>
+<h2 id="4、剪裁"><a href="#4、剪裁" class="headerlink" title="4、剪裁"></a>4、剪裁</h2><p>​         命令：ffmpeg -i <input>-filter_complex crop=320:240:0:0 -y <output></output></p>
+<p>​         说明：其中的 crop=320:240:0:0为裁剪参数，具体含义是 crop=width:height:x:y，其中 width 和 height 表示裁剪后的尺寸，x:y 表示裁剪区域的左上角坐标。</p>
+<h2 id="5、加水印"><a href="#5、加水印" class="headerlink" title="5、加水印"></a>5、加水印</h2><p>命令：ffmpeg -i src.avi -vf “movie=<logoname>[logo];[in][logo]overlay=100:100[out]”-y <output></output></logoname></p>
+<p>​         说明：LogoName为图片名，overlay=100:100意义为overlay=x:y，在(x,y)坐标处开始添加水印。</p>
+<p>​         左上角：overlay=10:10 </p>
+<p>​         右上角：overlay=main_w-overlay_w-10:10</p>
+<p>​         左下角：overlay=10:main_h-overlay_h-10 </p>
+<p>​         右下角：overlay=main_w-overlay_w-10:main_h-overlay_h-10</p>
+<h2 id="6、拼接视频"><a href="#6、拼接视频" class="headerlink" title="6、拼接视频"></a>6、拼接视频</h2><p>​         命令：</p>
+<p>​                   第一步：ffmpeg  -i INPUT -fmpeg  OUTPUT</p>
+<p>​                   第二步：copy /b INPUT+INPUT OUTPUT</p>
+<p>​                   第三步：ffmpeg -i INPUT -f FORMAT OUTPUT</p>
+<p>​         说明：第一步把输入文件转为相同格式，第二步利用copy命令把文件合并，第三步把合并文件转为最终结果视频。</p>
+<p>​         例：把名为test.avi、test1_2.mp4 两个视频合并为resu.avi。</p>
+<p>​         第一步：ffmpeg -itest1.avi test1.mpg</p>
+<p>​                            ffmpeg-i test1_2.mp4 test2.mpg</p>
+<p>​         第二步：copy /btest1.mpg+test2.mpg resu.mpge</p>
+<p>​         第三步：ffmpeg -iresu.mpge -y resu.avi</p>
+<h2 id="7、旋转"><a href="#7、旋转" class="headerlink" title="7、旋转"></a>7、旋转</h2><p>​         命令： ffmpeg -i <input> -filter_complex transpose=X -y <output></output></p>
+<p>​         说明：transpose=1为顺时针旋转90°，transpose=2逆时针旋转90°。</p>
+<h2 id="8、镜像"><a href="#8、镜像" class="headerlink" title="8、镜像"></a>8、镜像</h2><p>​         <strong>上下镜像</strong></p>
+<p>​                   命令：ffmpeg -i src.avi -vf “split[mian][tmp];[tmp]crop=iw:ih/2:0:0,vflip[flip];[mian][flip]overlay=0:H/2”-y GHO.avi</p>
+<p>​                  说明：从命令中可以看出crop和vflip在一条流水线上，他们的处理流程如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20150706172251206?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="技术分享"></p>
+<p>可以利用此filter来做上下颠倒，命令如下： </p>
+<p>ffmpeg-i src.avi -vf “split [main][tmp]; [tmp] crop=iw:ih:0:0, vflip [flip];[main][flip] overlay=0:0” GHO2.avi</p>
+<p>处理效果和</p>
+<p>命令ffmpeg -isrc.avi -vf vflip GHO_v_1.avi一样，</p>
+<p>这样写只是为了更好的理解filter处理链。</p>
+<p>​         <strong>左右镜像</strong></p>
+<p>​                  命令： ffmpeg -i src.avi-vf “split [main][tmp]; [tmp] crop=iw/2:ih:0:0, hflip [flip]; [main][flip]overlay=W/2:0” GHO_H.avi</p>
+<p>​                   说明：流程和上下镜像一样，只是把坐标换了，并且指定用名为hfilp的filter。</p>
+<p>​                   可以利用此filter来做左右颠倒，命令如下： ffmpeg-i src.avi -vf “split [main][tmp</p>
+<p>]; [tmp] crop=iw:ih:0:0, hflip [flip];[main][flip] overlay=W:0” GHO_H_1.avi和命令ffmpeg -i src.avi-vf hflip GHO_H_1.avi一样的效果，这样写只是为了更好的理解filter处理链。</p>
+<p>​         <strong>小结：</strong>split过滤器把输入分裂为2路输出<strong>，</strong>crop过滤器为翻转选取图像范围，vflip和hflip过滤器把crop切下的图像翻转（垂直、水平），overlay过滤器指定坐标来贴经过翻转处理的图像。</p>
+<p>​                  </p>
+<h2 id="9、加黑边"><a href="#9、加黑边" class="headerlink" title="9、加黑边"></a>9、加黑边</h2><p>​         命令： ffmpeg -isrc.avi -vf pad=1280:800:0:40:black -y test_pad.avi</p>
+<p>​         说明：pad=width:high:x:y:coler，这里的宽和高指的是结果视频尺寸（包含加黑边的尺寸），XY指的是源视频添加到结果视频所在位置，coler为填充颜色。</p>
+<h2 id="10、调音量"><a href="#10、调音量" class="headerlink" title="10、调音量"></a>10、调音量</h2><p>​         命令：ffmpeg -i<input> -vol X <output></output></p>
+<p>​         说明：不解释</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://hesitationpencil.github.io">gagapencil</a>
-            </p><p>原文链接：<a href="https://hesitationpencil.github.io/2019/06/20/增量更新/">https://hesitationpencil.github.io/2019/06/20/增量更新/</a>
-            </p><p>发表日期：<a href="https://hesitationpencil.github.io/2019/06/20/增量更新/">June 20th 2019, 3:34:07 pm</a>
-            </p><p>更新日期：<a href="https://hesitationpencil.github.io/2019/06/20/增量更新/">June 20th 2019, 3:45:15 pm</a>
+            </p><p>原文链接：<a href="https://hesitationpencil.github.io/2019/06/20/FFmpeg命令详解 /">https://hesitationpencil.github.io/2019/06/20/FFmpeg命令详解 /</a>
+            </p><p>发表日期：<a href="https://hesitationpencil.github.io/2019/06/20/FFmpeg命令详解 /">六月 20日 2019, 3:43:19 下午</a>
+            </p><p>更新日期：<a href="https://hesitationpencil.github.io/2019/06/20/FFmpeg命令详解 /">June 20th 2019, 3:45:32 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -454,7 +494,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/06/20/FFmpeg命令详解 /" title>
+                <a href="/2019/06/20/屏幕适配/" title>
                     <div class="nextTitle">[Untitled Post]</div>
                 </a>
             
@@ -462,8 +502,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/06/20/apk签名及多渠道打包/" title="apk签名过程及多渠道">
-                    <div class="prevTitle">apk签名过程及多渠道</div>
+                <a href="/2019/06/20/增量更新/" title>
+                    <div class="prevTitle">[Untitled Post]</div>
                 </a>
             
         </li>
@@ -576,7 +616,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#增量更新"><span class="toc-number">1.</span> <span class="toc-text">增量更新</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理及作用"><span class="toc-number">1.1.</span> <span class="toc-text">原理及作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#增量文件的生成"><span class="toc-number">1.2.1.</span> <span class="toc-text">增量文件的生成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bisdiff算法原理"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">bisdiff算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ubuntu编译bisdiff"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">ubuntu编译bisdiff</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#下载"><span class="toc-number">1.2.1.2.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译"><span class="toc-number">1.2.1.2.2.</span> <span class="toc-text">编译</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#滤镜解析"><span class="toc-number">1.</span> <span class="toc-text">滤镜解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频滤镜"><span class="toc-number">1.1.</span> <span class="toc-text">视频滤镜</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#crop"><span class="toc-number">1.1.1.</span> <span class="toc-text">crop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scale"><span class="toc-number">1.1.2.</span> <span class="toc-text">scale</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pad"><span class="toc-number">1.1.3.</span> <span class="toc-text">pad</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#overlay"><span class="toc-number">1.1.4.</span> <span class="toc-text">overlay</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rotate"><span class="toc-number">1.1.5.</span> <span class="toc-text">rotate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hflip-amp-vflip"><span class="toc-number">1.1.6.</span> <span class="toc-text">hflip &amp; vflip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#edgedetect"><span class="toc-number">1.1.7.</span> <span class="toc-text">edgedetect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fps"><span class="toc-number">1.1.8.</span> <span class="toc-text">fps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#drawbox"><span class="toc-number">1.1.9.</span> <span class="toc-text">drawbox</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#drawgrid"><span class="toc-number">1.1.10.</span> <span class="toc-text">drawgrid</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#drawtext"><span class="toc-number">1.1.11.</span> <span class="toc-text">drawtext</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#blend-amp-tblend"><span class="toc-number">1.1.12.</span> <span class="toc-text">blend &amp; tblend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thumbnail"><span class="toc-number">1.1.13.</span> <span class="toc-text">thumbnail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#transpose"><span class="toc-number">1.1.14.</span> <span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#histogram"><span class="toc-number">1.1.15.</span> <span class="toc-text">histogram</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#showinfo"><span class="toc-number">1.1.16.</span> <span class="toc-text">showinfo</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、加字幕"><span class="toc-number">2.</span> <span class="toc-text">1、加字幕</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、剪切"><span class="toc-number">3.</span> <span class="toc-text">2、剪切</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、缩放"><span class="toc-number">4.</span> <span class="toc-text">3、缩放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、剪裁"><span class="toc-number">5.</span> <span class="toc-text">4、剪裁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、加水印"><span class="toc-number">6.</span> <span class="toc-text">5、加水印</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、拼接视频"><span class="toc-number">7.</span> <span class="toc-text">6、拼接视频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、旋转"><span class="toc-number">8.</span> <span class="toc-text">7、旋转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、镜像"><span class="toc-number">9.</span> <span class="toc-text">8、镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、加黑边"><span class="toc-number">10.</span> <span class="toc-text">9、加黑边</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10、调音量"><span class="toc-number">11.</span> <span class="toc-text">10、调音量</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
