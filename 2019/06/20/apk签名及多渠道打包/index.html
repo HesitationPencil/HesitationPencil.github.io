@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="gagapencil">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="gagapencil">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="android开发 学习 工作 生活">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>aa · gagapencil学习小站</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">gagapencil学习小站</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">aa</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">gagapencil学习小站</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            aa
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">7.6k</span>阅读时长: <span class="post-count reading-time">27 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/20</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="apk签名过程及多渠道"><a href="#apk签名过程及多渠道" class="headerlink" title="apk签名过程及多渠道"></a>apk签名过程及多渠道</h1><p>公司业务渠道较多共有70多个渠道，打包时间较长，所以抽时间研究一下美团的多渠道打包。本文介绍常见的多渠道打包方式：productFlavors方式，apktool,美团1.0，美团2.0,腾讯 这些方式技术从旧到新，试图说起多渠道打包的脉络。</p>
+<h2 id="productFlavors"><a href="#productFlavors" class="headerlink" title="productFlavors"></a>productFlavors</h2><p>productFlavors不用切换项目分支就可以编译调试不同项目版本的APK，并且可以快速打包所有项目版本的APK。例如是开发第三方Android OS的时候，由于要给不同的厂商做定制，并且适配不同的硬件平台，所以发版本的时候，经常要切换项目分支，然后逐个编译APK。<br>关于更多productFlavor介绍参考：<a href="https://juejin.im/entry/5a586bfaf265da3e2c3808c5" target="_blank" rel="noopener">productFlavors详细使用</a> <br><br>productFlavors多渠道打包具体详情参见：<a href="https://blog.csdn.net/u010818425/article/details/52319382" target="_blank" rel="noopener">Gradle实战：Android多渠道打包方案汇总</a> <br></p>
+<p>早期的多渠道打包基本上是采用这种方式。首先，在AndroidManifest.xml中添加渠道信息占位符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta-data android:name=&quot;InstallChannel&quot; android:value=&quot;$&#123;InstallChannel&#125;&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后，通过Gradle Plugin提供的productFlavors标签，添加渠道信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">productFlavors&#123;</span><br><span class="line">    &quot;YingYongBao&quot;&#123;</span><br><span class="line">        manifestPlaceholders = [InstallChannel : &quot;YingYongBao&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">    &quot;360&quot;&#123;</span><br><span class="line">        manifestPlaceholders = [InstallChannel : &quot;360&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，Gradle编译生成多渠道包时，会用不同的渠道信息替换AndroidManifest.xml中的占位符。我们在代码中，也就可以直接读取AndroidManifest.xml中的渠道信息了。</p>
+<p>但是，这种方式存在一些缺点：</p>
+<ol>
+<li>每生成一个渠道包，都要重新执行一遍构建流程，效率太低，只适用于渠道较少的场景。</li>
+<li>Gradle会为每个渠道包生成一个不同的BuildConfig.java类，记录渠道信息，导致每个渠道包的DEX的CRC值都不同。一般情况下，这是没有影响的。但是如果你使用了微信的Tinker热补丁方案，那么就需要为不同的渠道包打不同的补丁，这完全是不可以接受的。（因为Tinker是通过对比基础包APK和新包APK生成差分补丁，然后再把补丁和基础包APK一起合成新包APK。这就要求用于生成差分补丁的基础包DEX和用于合成新包的基础包DEX是完全一致的，即：每一个基础渠道包的DEX文件是完全一致的，不然就会合成失败）</li>
+</ol>
+<p>针对上述问题市面上出现了很多第三方，其中比较突出的是apktool,mcxiaoke的packer-ng-plugin，美图的walle和腾讯的VasDolly</p>
+<h2 id="apk签名过程及多渠道方案"><a href="#apk签名过程及多渠道方案" class="headerlink" title="apk签名过程及多渠道方案"></a>apk签名过程及多渠道方案</h2><p>现市面上存在的多渠道打包方式的原理大都是改apk文件，如此会造成签名验证问题。如此要掌握多渠道，需要先了解apk的签名过程。apk的签名先后有v1,v2,v3三种。</p>
+<h3 id="签名相关的基础知识"><a href="#签名相关的基础知识" class="headerlink" title="签名相关的基础知识"></a>签名相关的基础知识</h3><p>在了解apk的签名方式之前，我们先要了解签名相关的基础知识</p>
+<h4 id="数据摘要"><a href="#数据摘要" class="headerlink" title="数据摘要"></a>数据摘要</h4><p>数据摘要算法是一种能产生特定输出格式的算法，其原理是根据一定的运算规则对原始数据进行某种形式的信息提取，被提取出的信息就是原始数据的消息摘要，也称为数据指纹。<br>一般情况下，数据摘要算法具有以下特点：</p>
+<ul>
+<li>无论输入数据有多大（长），计算出来的数据摘要的长度总是固定的。例如：MD5算法计算出的数据摘要有128Bit。<br>一般情况下（不考虑碰撞的情况下），只要原始数据不同，那么其对应的数据摘要就不会相同。</li>
+<li>同时，只要原始数据有任何改动，那么其数据摘要也会完全不同。即：相同的原始数据必有相同的数据摘要，不同的原始数据，其数据摘要也必然不同。</li>
+<li>不可逆性 即只能正向提取原始数据的数据摘要，而无法从数据摘要中恢复出原始数据。<br>著名的摘要算法有RSA公司的MD5算法和SHA系列算法。<h4 id="数字签名和数字证书"><a href="#数字签名和数字证书" class="headerlink" title="数字签名和数字证书"></a>数字签名和数字证书</h4>数字签名和数字证书是成对出现的，两者不可分离（数字签名主要用来校验数据的完整性，数字证书主要用来确保公钥的安全发放）。<br>要明白数字签名的概念，必须要了解数据的加密、传输和校验流程。一般情况下，要实现数据的可靠通信，需要解决以下两个问题：</li>
+</ul>
+<ol>
+<li>确定数据的来源是其真正的发送者。</li>
+<li>确保数据在传输过程中，没有被篡改，或者若被篡改了，可以及时发现。</li>
+</ol>
+<p>而数字签名，就是为了解决这两个问题而诞生的。<br>首先，数据的发送者需要先申请一对公私钥对，并将公钥交给数据接收者。<br>然后，若数据发送者需要发送数据给接收者，则首先要根据原始数据，生成一份数字签名，然后把原始数据和数字签名一起发送给接收者。<br>数字签名由以下两步计算得来：</p>
+<ol>
+<li>计算发送数据的数据摘要</li>
+<li>用私钥对提取的数据摘要进行加密<br>这样，数据接收者拿到的消息就包含了两块内容：</li>
+<li>原始数据内容</li>
+<li>附加的数字签名</li>
+</ol>
+<p>接下来，接收者就会通过以下几步，校验数据的真实性：</p>
+<ol>
+<li>用相同的摘要算法计算出原始数据的数据摘要。</li>
+<li>用预先得到的公钥解密数字签名。</li>
+<li>对比签名得到的数据是否一致，如果一致，则说明数据没有被篡改，否则数据就是脏数据了</li>
+</ol>
+<p>因为私钥只有发送者才有，所以其他人无法伪造数字签名。这样通过数字签名就确保了数据的可靠传输。<br>综上所述，数字签名就是只有发送者才能产生的别人无法伪造的一段数字串，这段数字串同时也是对发送者发送数据真实性的一个有效证明。</p>
+<p>想法虽好，但是上面的整个流程，有一个前提，就是数据接收者能够正确拿到发送者的公钥。如果接收者拿到的公钥被篡改了，那么坏人就会被当成好人，而真正的数据发送者发送的数据则会被视作脏数据。那怎么才能保证公钥的安全性那？这就要靠数字证书来解决了。</p>
+<p>数字证书是由有公信力的证书中心（CA）颁发给申请者的证书，主要包含了：证书的发布机构、证书的有效期、申请者的公钥、申请者信息、数字签名使用的算法，以及证书内容的数字签名。</p>
+<p>可见，数字证书也用到了数字签名技术。只不过签名的内容是数据发送方的公钥，以及一些其它证书信息。<br>这样数据发送者发送的消息就包含了三部分内容：</p>
+<ol>
+<li>原始数据内容</li>
+<li>附加的数字签名</li>
+<li>申请的数字证书。</li>
+</ol>
+<p>接收者拿到数据后，首先会根据CA的公钥，解码出发送者的公钥。然后就与上面的校验流程完全相同了。</p>
+<p>所以，数字证书主要解决了公钥的安全发放问题。<br>因此，包含数字证书的整个签名和校验流程如下图所示：</p>
+<p><img src="https://i.imgur.com/wK3C5dK.png" alt></p>
+<h3 id="V1签名和多渠道打包方案"><a href="#V1签名和多渠道打包方案" class="headerlink" title="V1签名和多渠道打包方案"></a>V1签名和多渠道打包方案</h3><p>在android 7.0（N）之前是这种。</p>
+<h4 id="V1签名机制"><a href="#V1签名机制" class="headerlink" title="V1签名机制"></a>V1签名机制</h4><p>默认情况下，APK使用的就是V1签名。解压APK后，在META-INF目录下，可以看到三个文件：MANIFEST.MF、CERT.SF、CERT.RSA。它们都是V1签名的产物。</p>
+<p>其中，MANIFEST.MF文件内容如下所示：</p>
+<p><img src="https://i.imgur.com/4ptobDD.png" alt></p>
+<p>它记录了APK中所有原始文件的数据摘要的Base64编码,而数据摘要算法就是SHA1。</p>
+<p>CERT.SF文件内容如下所示：</p>
+<p><img src="https://i.imgur.com/D8YbFrW.png" alt></p>
+<p>SHA1-Digest-Manifest-Main-Attributes主属性记录了MANIFEST.MF文件所有主属性的数据摘要的Base64编码。<br>SHA1-Digest-Manifest则记录了整个MANIFEST.MF文件的数据摘要的Base64编码。<br>其余的普通属性则和MANIFEST.MF中的属性一一对应，分别记录了对应数据块的数据摘要的Base64编码。例如：CERT.SF文件中skin_drawable_btm_line.xml对应的SHA1-Digest，就是下面内容的数据摘要的Base64编码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name: res/drawable/skin_drawable_btm_line.xml</span><br><span class="line">SHA1-Digest: JqJbk6/AsWZMcGVehCXb33Cdtrk=</span><br><span class="line">\r\n</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意的是：最后一行的换行符是必不可少，需要参与计算的。</p>
+<p>CERT.RSA文件包含了对CERT.SF文件的数字签名和开发者的数字证书。RSA就是计算数字签名使用的非对称加密算法。</p>
+<p>V1签名的详细流程可参考<a href="https://android.googlesource.com/platform/build/+/7e447ed/tools/signapk/SignApk.java" target="_blank" rel="noopener">SignApk.java</a>，整个签名流程如下图所示：</p>
+<p><img src="https://i.imgur.com/vbqZBBW.png" alt></p>
+<p>整个签名机制的最终产物就是MANIFEST.MF、CERT.SF、CERT.RSA三个文件。</p>
+<h4 id="v1校验流程"><a href="#v1校验流程" class="headerlink" title="v1校验流程"></a>v1校验流程</h4><p>在安装APK时，Android系统会校验签名，检查APK是否被篡改。代码流程是：PackageManagerService.java -&gt; PackageParser.java，PackageParser类负责V1签名的具体校验。整个校验流程如下图所示：</p>
+<p><img src="https://i.imgur.com/uEPDuvx.png" alt></p>
+<p>若中间任何一步校验失败，APK就不能安装。</p>
+<p>OK，了解了V1的签名和校验流程。我们来看下，V1签名是怎么保证APK文件不被篡改的？<br>首先，如果破坏者修改了APK中的任何文件，那么被篡改文件的数据摘要的Base64编码就和MANIFEST.MF文件的记录值不一致，导致校验失败。<br>其次，如果破坏者同时修改了对应文件在MANIFEST.MF文件中的Base64值，那么MANIFEST.MF中对应数据块的Base64值就和CERT.SF文件中的记录值不一致，导致校验失败。<br>最后，如果破坏者更进一步，同时修改了对应文件在CERT.SF文件中的Base64值，那么CERT.SF的数字签名就和CERT.RSA记录的签名不一致，也会校验失败。<br>那有没有可能继续伪造CERT.SF的数字签名那？理论上不可能，因为破坏者没有开发者的私钥。那破坏者是不是可以用自己的私钥和数字证书重新签名那，这倒是完全可以！</p>
+<p>综上所述，任何对在MANIFEST.MF中有对应数字摘要的文件修改都会导致签名失败，除非重新签名。任何对在MANIFEST.MF文件的修改也会导致签名失败。<br>如此针对v1我们可以从以下3个方面下手避免添加渠道信息后导致签名失败。</p>
+<ol>
+<li>添加不被签名包含的文件写入多渠道信息。我们发现在META-INF中新建的文件是不会改变签名结构的，如此可知META-INF中新建文件写入渠道信息，其中美团的第一代打包工具是这样做的。</li>
+<li>我们可以通过逆向手段，添加渠道信息。即解压apk，添加渠道信息，重新签名。市面上apktool是这样弄的</li>
+<li>修改apk文件。我们发现v1的apk分三部分:内容快，中央目录块和中央结束块(EOCD)，其中EOCD是生成apk时自动加进去的，不受签名保护，如此可在其中添加渠道信息。市面上mcxiaoke的packer-ng-plugin和腾讯的VasDolly是采用这种原理</li>
+</ol>
+<h4 id="apktool"><a href="#apktool" class="headerlink" title="apktool"></a>apktool</h4><p>ApkTool是一个逆向分析工具，可以把APK解开，添加代码后，重新打包成APK，当然这些都是通过脚本实现的。因此，基于ApkTool的多渠道打包方案分为以下几步：</p>
+<p>复制一份新的APK<br>通过ApkTool工具，解压APK（apktool d origin.apk）<br>删除已有签名信息<br>添加渠道信息（可以在APK的任何文件添加渠道信息）<br>通过ApkTool工具，重新打包生成新APK（apktool b newApkDir）<br>重新签名<br>经过测试，这种方案完全是可行的。</p>
+<p>优点：<br>不需要重新构建新渠道包，仅需要复制修改就可以了。并且因为是重新签名，所以同时支持V1和V2签名。</p>
+<p>缺点：<br>ApkTool工具不稳定，曾经遇到过升级Gradle Plugin版本后，低版本ApkTool解压APK失败的情况。<br>生成新渠道包时，需要重新解包、打包和签名，而这几步操作又是相对比较耗时的。经过测试：生成企鹅电竞10个渠道包需要16分钟左右，虽然比Gradle Plugin方案减少很多耗时。但是若需要同时生成上百个渠道包，则需要几个小时，显然不适合渠道非常多的业务场景。</p>
+<h4 id="修改apk"><a href="#修改apk" class="headerlink" title="修改apk"></a>修改apk</h4><p>apktool存在诸多缺点，针对v1我采用的还是添加文件和修改apk来添加渠道信息的。修改文件原理教简单，下面我们重点介绍修改apk</p>
+<h5 id="apk文件结构"><a href="#apk文件结构" class="headerlink" title="apk文件结构"></a>apk文件结构</h5><p>修改apk得先知道其结构。APK文件本质上是一个ZIP压缩包，而ZIP格式是固定的，主要由三部分构成，如下图所示：</p>
+<p><img src="https://i.imgur.com/T1ZZl4k.png" alt></p>
+<ul>
+<li>第一部分是内容块，所有的压缩文件都在这部分。每个压缩文件都有一个local file header，主要记录了文件名、压缩算法、压缩前后的文件大小、修改时间、CRC32值等。</li>
+</ul>
+<ul>
+<li>第二部分称为中央目录，包含了多个central directory file header（和第一部分的local file header一一对应），每个中央目录文件头主要记录了压缩算法、注释信息、对应local file header的偏移量等，方便快速定位数据。</li>
+</ul>
+<ul>
+<li>最后一部分是EOCD，主要记录了中央目录大小、偏移量和ZIP注释信息等，其详细结构如下图所示：</li>
+</ul>
+<p><img src="https://i.imgur.com/wM4IMAP.png" alt></p>
+<p>根据之前的V1签名和校验机制可知，V1签名只会检验第一部分的所有压缩文件，而不理会后两部分内容。因此，只要把渠道信息写入到后两块内容就可以通过V1校验，而EOCD的注释字段无疑是最好的选择。</p>
+<h5 id="向apk文件结构中写入渠道信息"><a href="#向apk文件结构中写入渠道信息" class="headerlink" title="向apk文件结构中写入渠道信息"></a>向apk文件结构中写入渠道信息</h5><p>既然找到了突破口，那么基于V1签名的多渠道打包方案就应运而生：在APK文件的注释字段，添加渠道信息。</p>
+<p>整个方案包括以下几步：</p>
+<ol>
+<li>复制APK</li>
+<li>找到EOCD数据块</li>
+<li>修改注释长度</li>
+<li>添加渠道信息</li>
+<li>添加渠道信息长度</li>
+<li>添加魔数<br>添加渠道信息后的EOCD数据块如下所示：</li>
+</ol>
+<p><img src="https://i.imgur.com/SRuJq39.png" alt></p>
+<p>这里添加魔数的好处是方便从后向前读取数据，定位渠道信息。<br>因此，读取渠道信息包括以下几步：</p>
+<ol>
+<li>定位到魔数</li>
+<li>向前读两个字节，确定渠道信息的长度LEN</li>
+<li>继续向前读LEN字节，就是渠道信息了。</li>
+</ol>
+<p>通过16进制编辑器，可以查看到添加渠道信息后的APK（小端模式），如下所示：</p>
+<p><img src="https://i.imgur.com/oxKs1kg.png" alt></p>
+<p>6C 74 6C 6F 76 75 7A 68是魔数，04 00表示渠道信息长度为4，6C 65 6F 6E就是渠道信息leon了。0E 00就是APK注释长度了，正好是15。</p>
+<p>虽说整个方案很清晰，但是在找到EOCD数据块这步遇到一个问题。如果APK本身没有注释，那最后22字节就是EOCD。但是若APK本身已经包含了注释字段，那怎么确定EOCD的起始位置那？这里借鉴了系统V2签名确定EOCD位置的方案。整个计算流程如下图所示：</p>
+<p><img src="https://i.imgur.com/KOKo0Ey.png" alt></p>
+<p>整个方案介绍完了，该方案的最大优点就是：不需要解压缩APK，不需要重新签名，只需要复制APK，在注释字段添加渠道信息。每个渠道包仅需几秒的耗时，非常适合渠道较多的APK。</p>
+<p>但是好景不长，Android7.0之后新增了V2签名，该签名会校验整个APK的数据摘要，导致上述渠道打包方案失效。所以如果想继续使用上述方案，需要关闭Gradle Plugin中的V2签名选项，禁用V2签名。</p>
+<h3 id="V2签名和多渠道打包方案"><a href="#V2签名和多渠道打包方案" class="headerlink" title="V2签名和多渠道打包方案"></a>V2签名和多渠道打包方案</h3><h4 id="为什么需要V2签名"><a href="#为什么需要V2签名" class="headerlink" title="为什么需要V2签名"></a>为什么需要V2签名</h4><p>从前面的V1签名介绍，可以知道V1存在两个弊端：</p>
+<ul>
+<li>MANIFEST.MF中的数据摘要是基于原始未压缩文件计算的。因此在校验时，需要先解压出原始文件，才能进行校验。而解压操作无疑是耗时的。</li>
+<li>V1签名仅仅校验APK第一部分中的文件，缺少对APK的完整性校验。因此，在签名后，我们还可以修改APK文件，例如：通过zipalign进行字节对齐后，仍然可以正常安装。</li>
+</ul>
+<p>正是基于这两点，Google提出了V2签名，解决了上述两个问题：</p>
+<ol>
+<li>V2签名是对APK本身进行数据摘要计算，不存在解压APK的操作，减少了校验时间。</li>
+<li>V2签名是针对整个APK进行校验（不包含签名块本身），因此对APK的任何修改（包括添加注释、zipalign字节对齐）都无法通过V2签名的校验。<br>关于第一点的耗时问题，这里有一份实验室数据（Nexus 6P、Android 7.1.1）可供参考。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>APK安装耗时对比</th>
+<th align="center">取5次平均耗时（秒）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V1签名APK</td>
+<td align="center">11.64</td>
+</tr>
+<tr>
+<td>V2签名APK</td>
+<td align="center">4.42</td>
+</tr>
+<tr>
+<td>可见，V2签名对APK的安装速度还是提升不少的。</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="V2签名机制"><a href="#V2签名机制" class="headerlink" title="V2签名机制"></a>V2签名机制</h4><p>不同于V1，V2签名会生成一个签名块，插入到APK中。因此，V2签名后的APK结构如下图所示：</p>
+<p><img src="https://i.imgur.com/5iXggcb.png" alt></p>
+<p>APK签名块位于中央目录之前，文件数据之后。V2签名同时修改了EOCD中的中央目录的偏移量，使签名后的APK还符合ZIP结构。</p>
+<p>APK签名块的具体结构如下图所示：</p>
+<p><img src="https://i.imgur.com/yiGUL2Y.png" alt></p>
+<ol>
+<li>首先是8字节的签名块大小，此大小不包含该字段本身的8字节；</li>
+<li>其次就是ID-Value序列，就是一个4字节的ID和对应的数据；</li>
+<li>然后又是一个8字节的签名块大小，与开始的8字节是相等的；最后是16字节的签名块魔数。</li>
+<li>其中，ID为0x7109871a对应的Value就是V2签名块数据。</li>
+</ol>
+<p>V2签名块的生成可参考<a href="https://android.googlesource.com/platform/build/+/dd910c5/tools/signapk/src/com/android/signapk/ApkSignerV2.java" target="_blank" rel="noopener">ApkSignerV2</a>，整体结构和流程如下图所示：</p>
+<p><img src="https://i.imgur.com/Iavy77H.png" alt></p>
+<ol>
+<li>首先，根据多个签名算法，计算出整个APK的数据摘要，组成左上角的APK数据摘要集；</li>
+<li>接着，把最左侧一列的数据摘要、数字证书和额外属性组装起来，形成类似于V1签名的“MF”文件（第二列第一行）；</li>
+<li>其次，再用相同的私钥，不同的签名算法，计算出“MF”文件的数字签名，形成类似于V1签名的“SF”文件（第二列第二行）；</li>
+<li>然后，把第二列的类似MF文件、类似SF文件和开发者公钥一起组装成通过单个keystore签名后的v2签名块（第三列第一行）。</li>
+<li>最后，把多个keystore签名后的签名块组装起来，就是完整的V2签名块了（Android中允许使用多个keystore对apk进行签名）。</li>
+</ol>
+<p>上述流程比较繁琐。简而言之，单个keystore签名块主要由三部分组成，分别是上图中第二列的三个数据块：类似MF文件、类似SF文件和开发者公钥，其结构如下图所示：</p>
+<p><img src="https://i.imgur.com/yIg5d7q.png" alt></p>
+<p>除此之外，Google也优化了计算数据摘要的算法，使得可以并行计算，如下图所示：</p>
+<p><img src="https://i.imgur.com/WwLfEwv.png" alt></p>
+<p>数据摘要的计算包括以下几步：</p>
+<ol>
+<li>首先，将上述APK中文件内容块、中央目录、EOCD按照1MB大小分割成一些小块。</li>
+<li>然后，计算每个小块的数据摘要，基础数据是0xa5 + 块字节长度 + 块内容。</li>
+<li>最后，计算整体的数据摘要，基础数据是0x5a + 数据块的数量 + 每个数据块的摘要内容。</li>
+</ol>
+<p>这样，每个数据块的数据摘要就可以并行计算，加快了V2签名和校验的速度。</p>
+<h4 id="V2校验流程"><a href="#V2校验流程" class="headerlink" title="V2校验流程"></a>V2校验流程</h4><p>Android Gradle Plugin2.2之上默认会同时开启V1和V2签名，同时包含V1和V2签名的CERT.SF文件会有一个特殊的主属性，如下图所示：</p>
+<p><img src="https://i.imgur.com/7VCUKPs.png" alt></p>
+<p>该属性会强制APK走V2校验流程（7.0之上），以充分利用V2签名的优势（速度快和更完善的校验机制）。<br>因此，同时包含V1和V2签名的APK的校验流程如下所示：</p>
+<p><img src="https://i.imgur.com/yUj9Q68.png" alt></p>
+<p>简而言之：优先校验V2，没有或者不认识V2，则校验V1。</p>
+<p>这里引申出另外一个问题：APK签名时，只有V2签名，没有V1签名行不行？<br>经过尝试，这种情况是可以编译通过的，并且在Android 7.0之上也可以正确安装和运行。但是7.0之下，因为不认识V2，又没有V1签名，所以会报没有签名的错误。</p>
+<p>OK，明确了Android平台对V1和V2签名的校验选择之后，我们来看下V2签名的具体校验流程（PackageManagerService.java -&gt; PackageParser.java-&gt; ApkSignatureSchemeV2Verifier.java），如下图所示：</p>
+<p><img src="https://i.imgur.com/7m2eXxe.png" alt></p>
+<p>其中，最强签名算法是根据该算法使用的数据摘要算法来对比产生的，比如：SHA512 &gt; SHA256。</p>
+<p>校验成功的定义是至少找到一个keystore对应的签名块，并且所有签名块都按照上述流程校验成功。</p>
+<p>下面我们来看下V2签名是怎么保证APK不被篡改的？</p>
+<p>首先，如果破坏者修改了APK文件的任何部分（签名块本身除外），那么APK的数据摘要就和“MF”数据块中记录的数据摘要不一致，导致校验失败。</p>
+<p>其次，如果破坏者同时修改了“MF”数据块中的数据摘要，那么“MF”数据块的数字签名就和“SF”数据块中记录的数字签名不一致，导致校验失败。</p>
+<p>然后，如果破坏者使用自己的私钥去加密生成“SF”数据块，那么使用开发者的公钥去解密“SF”数据块中的数字签名就会失败；</p>
+<p>最后，更进一步，若破坏者甚至替换了开发者公钥，那么使用数字证书中的公钥校验签名块中的公钥就会失败，这也正是数字证书的作用。</p>
+<p>综上所述，任何对APK的修改，在安装时都会失败，除非对APK重新签名。但是相同包名，不同签名的APK也是不能同时安装的。</p>
+<p>其实也很简单，原来Android系统在校验APK的数据摘要时，首先会把EOCD的中央目录偏移量替换成签名块的偏移量，然后再计算数据摘要。而签名块的偏移量不就是v2签名之前的中央目录偏移量嘛！！！，因此，这样计算出的数据摘要就和“MF”数据块中的数据摘要完全一致了。具体代码逻辑，可参考<a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/util/apk/ApkSignatureSchemeV2Verifier.java" target="_blank" rel="noopener">ApkSignatureSchemeV2Verifier.java</a>的416 ~ 420行</p>
+<h4 id="基于V2签名的多渠道打包方案"><a href="#基于V2签名的多渠道打包方案" class="headerlink" title="基于V2签名的多渠道打包方案"></a>基于V2签名的多渠道打包方案</h4><p>在上节V2签名的校验流程中，有一个很重要的细节：Android系统只会关注ID为0x7109871a的V2签名块，并且忽略其他的ID-Value，同时V2签名只会保护APK本身，不包含签名块。</p>
+<p>因此，基于V2签名的多渠道打包方案就应运而生：在APK签名块中添加一个ID-Value，存储渠道信息。</p>
+<p>整个方案包括以下几步：</p>
+<ol>
+<li>找到APK的EOCD块</li>
+<li>找到APK签名块</li>
+<li>获取已有的ID-Value Pair</li>
+<li>添加包含渠道信息的ID-Value</li>
+<li>基于所有的ID-Value生成新的签名块</li>
+<li>修改EOCD的中央目录的偏移量（上面已介绍过：修改EOCD的中央目录偏移量，不会导致数据摘要校验失败）</li>
+<li>用新的签名块替代旧的签名块，生成带有渠道信息的APK</li>
+</ol>
+<p>实际上，除了渠道信息，我们可以在APK签名块中添加任何辅助信息。</p>
+<p>通过16进制编辑器，可以查看到添加渠道信息后的APK（小端模式），如下所示：</p>
+<p><img src="https://i.imgur.com/u3LSbiW.png" alt></p>
+<h3 id="V3签名和多渠道打包方案"><a href="#V3签名和多渠道打包方案" class="headerlink" title="V3签名和多渠道打包方案"></a>V3签名和多渠道打包方案</h3><p>在android 9.0(N)引入的</p>
+<h4 id="为什么要有v3"><a href="#为什么要有v3" class="headerlink" title="为什么要有v3"></a>为什么要有v3</h4><p>主要是为了换签名</p>
+<p>生成签名的时，可以指定一个有效时间，这个时间默认为 25 年，并且 Google Play 也有硬性规定，上架的 App 签名有效期必须在 2033-10-22 日期之后。所以只要不是手欠修改了这个有效期，在当下这个时刻，是不会有问题，毕竟到现在还没有一款 App 存在 25 年。当然还有可能是公司被收购 需要改签名<br>有些问题不在眼前，却是真实存在的。对于一款上架的 App，最重要的就是用户，而当签名失效之后，我们只能被迫换签名，此时因为签名校验无法通过，就会导致旧用户无法覆盖安装。这些历史用户唯一的选择，就是卸载后重新安装。<br>好在这不仅仅是你我的问题，天塌下来有个子高的顶着，所以别担心，Google 已经着手在解决这个问题了。</p>
+<h4 id="v3签名块结构"><a href="#v3签名块结构" class="headerlink" title="v3签名块结构"></a>v3签名块结构</h4><p>v3版本签名块也分成同样的三部分，与v2不同的是在SignerData部分，v3新增了attr块，其中是由更小的level块组成。每个level块中可以存储一个证书信息。前一个level块证书验证下一个level证书，以此类推。最后一个level块的证书，要符合SignerData中本身的证书，即用来签名整个APK的公钥所属于的证书。两个版本的签名块结构如下：</p>
+<p><img src="https://i.imgur.com/WS2oaSt.png" alt></p>
+<h4 id="v3验证签名流程"><a href="#v3验证签名流程" class="headerlink" title="v3验证签名流程"></a>v3验证签名流程</h4><p>因为签名的验证就是发生在一个apk包的安装过程中，所以为了更清楚验证签名的时机，有必要了解整个安装的分类与大致流程。Android安装应用主要有如下四种方式：</p>
+<ul>
+<li>系统应用安装：开机时完成，没有安装界面</li>
+<li>网络下载的应用安装：通过市场应用完成，没有安装界面</li>
+<li>ADB工具安装：没有安装界面</li>
+<li>第三方应用安装：通过packageinstall.apk应用安装，有安装界面</li>
+</ul>
+<p>但是其实无论通过哪种方式安装都要通过PackageManagerService来完成安装的主要工作，最终在PMS中会去验证签名信息，流程如下</p>
+<p><img src="https://i.imgur.com/TfWWNm2.png" alt></p>
+<p>安装过程中如果发现有v3签名块，则必须使用v3签名的验证机制，不能绕过。否则才使用v2签名的验证机制，以此类推。</p>
+<h5 id="验证完整性"><a href="#验证完整性" class="headerlink" title="验证完整性"></a>验证完整性</h5><p>数据完整性校验v3与v2版本相同，原理如下：</p>
+<p><img src="https://i.imgur.com/fimySQl.png" alt></p>
+<p>签名块包括对apk第一部分，第二部分，第三部分的二进制内容做加密保护，摘要算法以及签名算法。签名块本身不做加密，这里需要特殊注意的是由于第三部分包含了对第二部分的引用偏移，因此如果签名块做了改变，比如在签名过程中增加一种签名算法，或者增加签名者等信息就会导致这个引用偏移发生改变，因此在算摘要的时候需要剔除这个因素要以第三部分对签名块的偏移来做计算。</p>
+<h5 id="验证证书"><a href="#验证证书" class="headerlink" title="验证证书"></a>验证证书</h5><p>v2版本签名验证证书步骤：</p>
+<ul>
+<li>利用PublicKey解密Signature，得到SignerData的hash明文</li>
+<li>计算SignerData的hash值</li>
+<li>两个值进行比较，如果相同则认为APK没有被修改过，解析出SignerData中的证书。否则安装失败</li>
+<li>如果是第一次安装，直接将证书保存在应用信息中</li>
+<li>如果是更新安装，即设备中原来存在这个应用，验证之前的证书是否与本次解析的证书相同。若相同，则安装成功，否则失败</li>
+</ul>
+<p><img src="https://i.imgur.com/Hst19U0.png" alt></p>
+<p>v3版本签名验证证书步骤：（前三步同v2）</p>
+<ul>
+<li>利用PublicKey解密Signature，得到SignerData的hash明文</li>
+<li>计算SignerData的hash值</li>
+<li>两个值进行比较，如果相同则认为APK没有被修改过，解析出SignerData中的证书。否则安装失败</li>
+<li>逐个解析出level块证书并验证，并保存为这个应用的历史证书</li>
+<li>如果是第一次安装，直接将证书与历史证书一并保存在应用信息中</li>
+<li>如果是更新安装，验证之前的证书与历史证书，是否与本次解析的证书或者历史证书中存在相同的证书，其中任意一个证书符合即可安装</li>
+</ul>
+<p><img src="https://i.imgur.com/uekZQBP.png" alt></p>
+<h5 id="新特性场景举例"><a href="#新特性场景举例" class="headerlink" title="新特性场景举例"></a>新特性场景举例</h5><p>其实就是当开发者需要更换证书时，即可直接用新证书新的私钥进行签名。不过为了让老应用相信新的证书，则需要用老证书来保证。举个例子，有两个level块：level 1与level 2：</p>
+<ul>
+<li>level 1放置老证书的信息</li>
+<li>level 2中放置新证书的信息以及这段数据的签名</li>
+<li>level 2中的签名是由老私钥进行签名的，则需要用老证书的公钥来验证</li>
+<li>校验原来的证书与level 1 相同，则相信本次更新的level 2 的证书，即签名APK的证书</li>
+<li>完成安装并记录新证书信息</li>
+</ul>
+<h5 id="v3多渠道方案"><a href="#v3多渠道方案" class="headerlink" title="v3多渠道方案"></a>v3多渠道方案</h5><p>略 原理和v2同</p>
+<blockquote>
+<p>参考：</p>
+<p><a href="https://www.jianshu.com/p/332525b09a88" target="_blank" rel="noopener">https://www.jianshu.com/p/332525b09a88</a><br><a href="https://github.com/Meituan-Dianping/walle/" target="_blank" rel="noopener">https://github.com/Meituan-Dianping/walle/</a><br><a href="https://segmentfault.com/a/1190000015554496" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015554496</a><br><a href="https://juejin.im/entry/5a586bfaf265da3e2c3808c5" target="_blank" rel="noopener">https://juejin.im/entry/5a586bfaf265da3e2c3808c5</a><br><a href="https://blog.csdn.net/u010818425/article/details/52319382" target="_blank" rel="noopener">https://blog.csdn.net/u010818425/article/details/52319382</a><br><a href="https://github.com/Tencent/VasDolly" target="_blank" rel="noopener">https://github.com/Tencent/VasDolly</a><br><a href="https://cloud.tencent.com/developer/article/1004884" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1004884</a><br><a href="http://picksomething.cn/2018/05/08/Android%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%B9%E9%&gt;87%8F%E6%89%93%E5%8C%85%EF%BC%8C%E6%94%AF%E6%8C%81%E5%8F%8B%E7%9B%9F%E5%92%8C%E7%AC%&gt;AC%E4%B8%89%E6%96%B9%E5%8A%A0%E5%9B%BA/" target="_blank" rel="noopener">http://picksomething.cn/2018/05/08/Android%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%B9%E9%&gt;87%8F%E6%89%93%E5%8C%85%EF%BC%8C%E6%94%AF%E6%8C%81%E5%8F%8B%E7%9B%9F%E5%92%8C%E7%AC%&gt;AC%E4%B8%89%E6%96%B9%E5%8A%A0%E5%9B%BA/</a><br><a href="http://twei.site/2016/08/31/MarkdownPad-2-%E6%94%AF%E6%8C%81%E8%A1%A8%E6%A0%BC/" target="_blank" rel="noopener">http://twei.site/2016/08/31/MarkdownPad-2-%E6%94%AF%E6%8C%81%E8%A1%A8%E6%A0%BC/</a></p>
+</blockquote>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://hesitationpencil.github.io">gagapencil</a>
+            </p><p>原文链接：<a href="https://hesitationpencil.github.io/2019/06/20/apk签名及多渠道打包/">https://hesitationpencil.github.io/2019/06/20/apk签名及多渠道打包/</a>
+            </p><p>发表日期：<a href="https://hesitationpencil.github.io/2019/06/20/apk签名及多渠道打包/">June 20th 2019, 3:19:14 pm</a>
+            </p><p>更新日期：<a href="https://hesitationpencil.github.io/2019/06/20/apk签名及多渠道打包/">June 20th 2019, 3:20:43 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/06/20/aa/" title="aa">
+                    <div class="nextTitle">aa</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/06/20/yy/" title="Hello World">
+                    <div class="prevTitle">Hello World</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:youyuqianbi@163.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apk签名过程及多渠道"><span class="toc-number">1.</span> <span class="toc-text">apk签名过程及多渠道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#productFlavors"><span class="toc-number">1.1.</span> <span class="toc-text">productFlavors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apk签名过程及多渠道方案"><span class="toc-number">1.2.</span> <span class="toc-text">apk签名过程及多渠道方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#签名相关的基础知识"><span class="toc-number">1.2.1.</span> <span class="toc-text">签名相关的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据摘要"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">数据摘要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数字签名和数字证书"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">数字签名和数字证书</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V1签名和多渠道打包方案"><span class="toc-number">1.2.2.</span> <span class="toc-text">V1签名和多渠道打包方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#V1签名机制"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">V1签名机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v1校验流程"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">v1校验流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apktool"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">apktool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改apk"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">修改apk</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#apk文件结构"><span class="toc-number">1.2.2.4.1.</span> <span class="toc-text">apk文件结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#向apk文件结构中写入渠道信息"><span class="toc-number">1.2.2.4.2.</span> <span class="toc-text">向apk文件结构中写入渠道信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V2签名和多渠道打包方案"><span class="toc-number">1.2.3.</span> <span class="toc-text">V2签名和多渠道打包方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要V2签名"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">为什么需要V2签名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#V2签名机制"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">V2签名机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#V2校验流程"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">V2校验流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于V2签名的多渠道打包方案"><span class="toc-number">1.2.3.4.</span> <span class="toc-text">基于V2签名的多渠道打包方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V3签名和多渠道打包方案"><span class="toc-number">1.2.4.</span> <span class="toc-text">V3签名和多渠道打包方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要有v3"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">为什么要有v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v3签名块结构"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">v3签名块结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v3验证签名流程"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">v3验证签名流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#验证完整性"><span class="toc-number">1.2.4.3.1.</span> <span class="toc-text">验证完整性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#验证证书"><span class="toc-number">1.2.4.3.2.</span> <span class="toc-text">验证证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#新特性场景举例"><span class="toc-number">1.2.4.3.3.</span> <span class="toc-text">新特性场景举例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#v3多渠道方案"><span class="toc-number">1.2.4.3.4.</span> <span class="toc-text">v3多渠道方案</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/06/02/hello-world/">Hello World</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/apk签名及多渠道打包/">aa</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/aa/">aa</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/yy/">Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href="/2019/06/02/gagapenci-第一个测试-王旭同学-你好/">gagapenci 第一个测试 王旭同学 你好</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "gagapencil"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
