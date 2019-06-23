@@ -365,8 +365,8 @@ height:50vh;
         </a>
         <div class="abstract-content">
             [TOC]
-##前言c程序运行在linux进程中，要想弄清楚c程序运行时内存需要搞清楚进程空间，而要搞清楚进程空间 虚拟内存是必须要了解的。毋庸置疑，虚拟内存绝对是操作系统中最重要的概念之一。我想主要是由于内存的重要”战略地位”。CPU太快，但容量小且功能单一，其他 I/O 硬件支持各种花式功能，可是相对于 CPU，它们又太慢。于是它们之间就需要一种润滑剂来作为缓冲，这就是内存大显身手的地方。而在现代操作系统中，多任务已是标配。多任务并行，大大提升了 CPU 利用率，但却引出了多个进程对内存操作的冲突问题，虚拟内存概念的提出就是为了解决这个问题。
-由来：回顾一下历史，在早期的计算机中，程...
+前言c程序运行在linux进程中，要想弄清楚c程序运行时内存需要搞清楚进程空间，而要搞清楚进程空间 虚拟内存是必须要了解的。毋庸置疑，虚拟内存绝对是操作系统中最重要的概念之一。我想主要是由于内存的重要”战略地位”。CPU太快，但容量小且功能单一，其他 I/O 硬件支持各种花式功能，可是相对于 CPU，它们又太慢。于是它们之间就需要一种润滑剂来作为缓冲，这就是内存大显身手的地方。而在现代操作系统中，多任务已是标配。多任务并行，大大提升了 CPU 利用率，但却引出了多个进程对内存操作的冲突问题，虚拟内存概念的提出就是为了解决这个问题。
+由来：回顾一下历史，在早期的计算机中，程序是...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -420,38 +420,6 @@ scale使用libswscale库完成视频缩放的filter
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="音视频 ffmpeg">音视频 ffmpeg</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/06/20/android编舞者ChoreoGrapher/">
-            
-                <span>android编舞者ChoreoGrapher</span>
-        </a>
-        <div class="abstract-content">
-            Choreographer的作用结合上篇Android 绘制原理可知道，屏幕每16ms 显示frame buffer上的帧信息，然后frame buffer和back buffer进行互换，并发送vsync信号，此时CPU会中断其它操作，来通过ChoreGrapher去确定显示的帧信息（控件应该怎么画，画在哪个位置，画多大），当这些信息确定后，GPU再根据这些信息刷新back buffer的信息，刷新完成后 back buffer 和 frame buffer互换位置。
-Choreographer的具体运行过程Choreographer主要做如下工作，下面我们逐一分析
-
-注册监听，当收到...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="android源码 绘制原理 vysn">android源码 绘制原理 vysn</a>
     
 </div>
             
@@ -543,6 +511,38 @@ productFlavorsproductFlavors不用切换项目分支就可以编译调试不同�
             <div class="abstract-tags">
     
         <a class="post-tag" href="javascript:void(0);" data-tags="适配">适配</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/06/20/android编舞者ChoreoGrapher/">
+            
+                <span>android编舞者ChoreoGrapher</span>
+        </a>
+        <div class="abstract-content">
+            Choreographer的作用结合上篇Android 绘制原理可知道，屏幕每16ms 显示frame buffer上的帧信息，然后frame buffer和back buffer进行互换，并发送vsync信号，此时CPU会中断其它操作，来通过ChoreGrapher去确定显示的帧信息（控件应该怎么画，画在哪个位置，画多大），当这些信息确定后，GPU再根据这些信息刷新back buffer的信息，刷新完成后 back buffer 和 frame buffer互换位置。
+Choreographer的具体运行过程Choreographer主要做如下工作，下面我们逐一分析
+
+注册监听，当收到...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/20</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="android源码 绘制原理 vysn">android源码 绘制原理 vysn</a>
     
 </div>
             
@@ -866,6 +866,11 @@ productFlavorsproductFlavors不用切换项目分支就可以编译调试不同�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/android编舞者ChoreoGrapher/">android编舞者ChoreoGrapher</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/屏幕适配/">屏幕适配</a>
         </li>
     
@@ -877,11 +882,6 @@ productFlavorsproductFlavors不用切换项目分支就可以编译调试不同�
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/apk签名及多渠道打包/">apk签名过程及多渠道</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/android编舞者ChoreoGrapher/">android编舞者ChoreoGrapher</a>
         </li>
     
     
@@ -903,13 +903,13 @@ productFlavorsproductFlavors不用切换项目分支就可以编译调试不同�
     
         <span class="sidebar-tag-name" data-tags="android绘制"><span class="iconfont-archer">&#xe606;</span>android绘制</span>
     
-        <span class="sidebar-tag-name" data-tags="android源码 绘制原理 vysn"><span class="iconfont-archer">&#xe606;</span>android源码 绘制原理 vysn</span>
-    
         <span class="sidebar-tag-name" data-tags="打包原理"><span class="iconfont-archer">&#xe606;</span>打包原理</span>
     
         <span class="sidebar-tag-name" data-tags="apk打包原理 增量更新"><span class="iconfont-archer">&#xe606;</span>apk打包原理 增量更新</span>
     
         <span class="sidebar-tag-name" data-tags="适配"><span class="iconfont-archer">&#xe606;</span>适配</span>
+    
+        <span class="sidebar-tag-name" data-tags="android源码 绘制原理 vysn"><span class="iconfont-archer">&#xe606;</span>android源码 绘制原理 vysn</span>
     
         <span class="sidebar-tag-name" data-tags="linux 虚拟内存 内存管理 c内存模型"><span class="iconfont-archer">&#xe606;</span>linux 虚拟内存 内存管理 c内存模型</span>
     
