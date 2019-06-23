@@ -346,23 +346,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/06/19/android绘制原理/">
+        <a class="abstract-title" href="/2019/06/23/深入理解Linux中内存管理/">
             
-                <span>增量更新</span>
+                <span>深入理解linux中内存管理</span>
         </a>
         <div class="abstract-content">
-            硬件分工在计算机硬件中, 通常 CPU 用来处理数据, GPU 用来渲染数据. Android 系统也不例外, 绘制过程首先是 CPU 准备数据, 通过 Driver 层把数据交给 GPU 渲染. 其中 CPU 主要负责 Measure 、Layout 、Record 、Execute 的数据计算工作, GPU 负责 Rasterization（栅格化）、渲染. 由于图形 API 不允许 CPU 直接与 GPU 通信, 而是通过中间的一个图形驱动层（Graphics Driver）来连接这两部分. 图形驱动维护了一个队列, CPU 把 display list 添加到队列中, GPU 从...
+            [TOC]
+##前言c程序运行在linux进程中，要想弄清楚c程序运行时内存需要搞清楚进程空间，而要搞清楚进程空间 虚拟内存是必须要了解的。毋庸置疑，虚拟内存绝对是操作系统中最重要的概念之一。我想主要是由于内存的重要”战略地位”。CPU太快，但容量小且功能单一，其他 I/O 硬件支持各种花式功能，可是相对于 CPU，它们又太慢。于是它们之间就需要一种润滑剂来作为缓冲，这就是内存大显身手的地方。而在现代操作系统中，多任务已是标配。多任务并行，大大提升了 CPU 利用率，但却引出了多个进程对内存操作的冲突问题，虚拟内存概念的提出就是为了解决这个问题。
+由来：回顾一下历史，在早期的计算机中，程...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/23</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="android绘制原理">android绘制原理</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="linux 虚拟内存 内存管理 c内存模型">linux 虚拟内存 内存管理 c内存模型</a>
     
 </div>
             
@@ -526,9 +528,26 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -544,12 +563,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/android编舞者ChoreoGrapher/">android编舞者ChoreoGrapher</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/apk签名及多渠道打包/">apk签名过程及多渠道</a>
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href="/2019/06/23/深入理解Linux中内存管理/">深入理解linux中内存管理</a>
         </li>
     
     
@@ -559,17 +573,27 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/FFmpeg命令详解 /">FFmpeg命令详解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/增量更新/">增量更新</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/19</span><a class="archive-post-title" href="/2019/06/19/android绘制原理/">增量更新</a>
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/apk签名及多渠道打包/">apk签名过程及多渠道</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/android编舞者ChoreoGrapher/">android编舞者ChoreoGrapher</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href="/2019/06/20/FFmpeg命令详解 /">FFmpeg命令详解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href="/2019/06/19/android绘制原理/">android绘制原理</a>
         </li>
     
     </ul></div>
@@ -577,17 +601,19 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="android绘制原理"><span class="iconfont-archer">&#xe606;</span>android绘制原理</span>
-    
-        <span class="sidebar-tag-name" data-tags="apk打包原理 增量更新"><span class="iconfont-archer">&#xe606;</span>apk打包原理 增量更新</span>
-    
         <span class="sidebar-tag-name" data-tags="音视频 ffmpeg"><span class="iconfont-archer">&#xe606;</span>音视频 ffmpeg</span>
     
-        <span class="sidebar-tag-name" data-tags="适配"><span class="iconfont-archer">&#xe606;</span>适配</span>
+        <span class="sidebar-tag-name" data-tags="android绘制"><span class="iconfont-archer">&#xe606;</span>android绘制</span>
+    
+        <span class="sidebar-tag-name" data-tags="android源码 绘制原理 vysn"><span class="iconfont-archer">&#xe606;</span>android源码 绘制原理 vysn</span>
     
         <span class="sidebar-tag-name" data-tags="打包原理"><span class="iconfont-archer">&#xe606;</span>打包原理</span>
     
-        <span class="sidebar-tag-name" data-tags="android源码 绘制原理 vysn"><span class="iconfont-archer">&#xe606;</span>android源码 绘制原理 vysn</span>
+        <span class="sidebar-tag-name" data-tags="apk打包原理 增量更新"><span class="iconfont-archer">&#xe606;</span>apk打包原理 增量更新</span>
+    
+        <span class="sidebar-tag-name" data-tags="适配"><span class="iconfont-archer">&#xe606;</span>适配</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux 虚拟内存 内存管理 c内存模型"><span class="iconfont-archer">&#xe606;</span>linux 虚拟内存 内存管理 c内存模型</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
